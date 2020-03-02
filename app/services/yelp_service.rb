@@ -13,7 +13,7 @@ private
 
   def conn
     Faraday.new("https://api.yelp.com/v3/businesses/search") do |faraday|
-      faraday.headers[:Authorization] = 'Bearer 4BUHuYVuiDVPZnleaTSQOfnQNCcIpEoGh7YnEnG9eoDHdHn-e-yqVg2g2Ysw7tRqwKEBAF_AmZhxy-CO-uLmxWOtTnx1pDlLDb-yUOqhfcJcwb8jiZwDjD4rCJBcXnYx'
+      faraday.headers[:Authorization] = ENV['YELP_API_KEY']
       faraday.adapter Faraday.default_adapter
     end
   end
