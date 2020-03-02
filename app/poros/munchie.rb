@@ -21,10 +21,11 @@ class Munchie
   end
 
   def restaurant
-    yelp_restaurant_data
-    require "pry"; binding.pry
+    {
+      name: yelp_restaurant_data[:name],
+      address: yelp_restaurant_data[:location][:display_address].join(', ')
+    }
   end
-
 
 private
 
@@ -46,6 +47,6 @@ private
   end
 
   def yelp_restaurant_data
-    @yelp_restaurant_data ||= YelpService.new(@destination, @food_type).get_restaurant(travel_time_secs)
+    @yelp_restaurant_data ||= YelpService.new(@destination, @food_type).get_restaurant(travel_time_secs)[:businesses][0]
   end
 end
