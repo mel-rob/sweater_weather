@@ -16,10 +16,24 @@ class Munchie
     google_direction_data[:duration][:text]
   end
 
+  def forecast
+    darksky_forecast_data
+  end
+
 
 private
 
   def google_direction_data
     @google_direction_data ||= GoogleService.new(@origin, @destination).get_directions[:routes][0][:legs][0]
+  end
+
+  def darksky_forecast_data
+    @darksky_forecast_data ||= DarkSkyService.new(lat_long).get_forecast
+    require "pry"; binding.pry
+  end
+
+  def lat_long
+    end_location = google_direction_data[:end_location]
+    "#{end_location[:lat]},#{end_location[:lng]}"
   end
 end
