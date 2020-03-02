@@ -20,6 +20,11 @@ class Munchie
     darksky_forecast_data[:currently][:summary]
   end
 
+  def restaurant
+    yelp_restaurant_data
+    require "pry"; binding.pry
+  end
+
 
 private
 
@@ -38,5 +43,9 @@ private
 
   def travel_time_secs
     google_direction_data[:duration][:value]
+  end
+
+  def yelp_restaurant_data
+    @yelp_restaurant_data ||= YelpService.new(@destination, @food_type).get_restaurant(travel_time_secs)
   end
 end
