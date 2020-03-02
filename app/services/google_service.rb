@@ -1,17 +1,21 @@
 class GoogleService
 
-  def initialize(location)
-    @location = location
+  def initialize(origin)
+    @origin = origin
   end
 
   def get_location
     location_data
   end
 
+  def get_directions(destination)
+    direction_data(destination)
+  end
+
 private
 
-  def conn
-    Faraday.new('https://maps.googleapis.com/maps/api/geocode/json') do |faraday|
+  def conn(type)
+    Faraday.new("https://maps.googleapis.com/maps/api/#{type}/json") do |faraday|
       faraday.params['key'] = ENV['GOOGLE_API_KEY']
       faraday.adapter Faraday.default_adapter
     end
@@ -22,5 +26,13 @@ private
       request.params['address'] = @location
     end
     JSON.parse(response.body, symbolize_names: true)
+  end
+
+  def direction_data(destination)
+    response = conn.get do |request|
+      request.params['origin'] = @origin
+      request.params['destination'] = destination
+    end
+    json = JSON.parse(response.body, symbolize_names: true)
   end
 end
