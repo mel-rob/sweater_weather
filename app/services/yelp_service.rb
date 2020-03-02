@@ -9,7 +9,6 @@ class YelpService
     get_arrival_json((Time.now + seconds).to_i)
   end
 
-
 private
 
   def conn
