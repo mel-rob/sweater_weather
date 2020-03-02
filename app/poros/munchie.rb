@@ -17,7 +17,7 @@ class Munchie
   end
 
   def forecast
-    darksky_forecast_data
+    darksky_forecast_data[:currently][:summary]
   end
 
 
@@ -28,12 +28,15 @@ private
   end
 
   def darksky_forecast_data
-    @darksky_forecast_data ||= DarkSkyService.new(lat_long).get_forecast
-    require "pry"; binding.pry
+    @darksky_forecast_data ||= DarkSkyService.new(lat_long).get_forecast_on_arrival(travel_time_secs)
   end
 
   def lat_long
     end_location = google_direction_data[:end_location]
     "#{end_location[:lat]},#{end_location[:lng]}"
+  end
+
+  def travel_time_secs
+    google_direction_data[:duration][:value]
   end
 end
