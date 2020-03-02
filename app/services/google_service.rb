@@ -1,15 +1,16 @@
 class GoogleService
 
-  def initialize(origin)
+  def initialize(origin, destination = nil)
     @origin = origin
+    @destination = destination
   end
 
   def get_location
     location_data
   end
 
-  def get_directions(destination)
-    direction_data(destination)
+  def get_directions
+    direction_data
   end
 
 private
@@ -22,16 +23,16 @@ private
   end
 
   def location_data
-    response = conn.get do |request|
-      request.params['address'] = @location
+    response = conn('geocode').get do |request|
+      request.params['address'] = @origin
     end
     JSON.parse(response.body, symbolize_names: true)
   end
 
-  def direction_data(destination)
-    response = conn.get do |request|
+  def direction_data
+    response = conn('directions').get do |request|
       request.params['origin'] = @origin
-      request.params['destination'] = destination
+      request.params['destination'] = @destination
     end
     json = JSON.parse(response.body, symbolize_names: true)
   end
