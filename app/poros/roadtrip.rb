@@ -1,4 +1,5 @@
 class Roadtrip
+  attr_reader :id, :origin, :destination
 
   def initialize(origin, destination)
     @id = nil
@@ -7,9 +8,11 @@ class Roadtrip
   end
 
   def travel_time
+    directions_info[:duration][:text]
   end
 
   def arrival_forecast
+    roadtrip_forecast
   end
 
 private
@@ -27,8 +30,10 @@ private
   end
 
   def darksky_prediction
-    DarkskyService.new(lat_long).get_arrival_forecast(travel_time_secs)
+    DarkSkyService.new(lat_long).get_arrival_forecast(travel_time_secs)
   end
 
-
+  def roadtrip_forecast
+    RoadtripForecast.new(darksky_prediction)
+  end
 end
