@@ -33,6 +33,6 @@ private
       request.params['origin'] = @origin
       request.params['destination'] = destination
     end
-    JSON.parse(response.body), symbolize_names: true)
+    JSON.parse(response.body, symbolize_names: true)
   end
 end
