@@ -8,6 +8,10 @@ class DarkSkyService
     get_json
   end
 
+  def get_arrival_forecast(seconds)
+    prediction_json((Time.now + seconds).to_i)
+  end
+
 private
 
   def conn
@@ -20,4 +24,7 @@ private
     response = conn.get(@lat_long)
     JSON.parse(response.body, symbolize_names: true)
   end
+
+  def prediction_json(seconds)
+    response = conn.get("#{@}")
 end
