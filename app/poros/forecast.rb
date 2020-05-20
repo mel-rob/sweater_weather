@@ -26,22 +26,22 @@ private
 
   def hourly_data
     raw_data[:hourly][:data][0..7].map do |hour|
-      Hour.info(hour)
+      Hour.new(hour)
     end
   end
 
   def daily_data
     raw_data[:daily][:data][0..4].map do |day|
-      Day.info(day)
+      Day.new(day)
     end
   end
 
   def current_data
-    Current.info(raw_data[:currently])
+    Current.new(raw_data[:currently])
   end
 
   def today_data
-    Today.info(raw_data)
+    Today.new(raw_data)
   end
 
   def lat_long

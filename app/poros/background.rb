@@ -10,5 +10,4 @@ class Background
     images = UnsplashService.new(@location).get_background[:results]
     images[0][:urls][:full]
   end
-
 end
