@@ -25,6 +25,7 @@ VCR.configure do |config|
   config.configure_rspec_metadata!
   config.filter_sensitive_data("<GOOGLE_API_KEY>") { ENV['GOOGLE_API_KEY'] }
   config.filter_sensitive_data("<DARK_SKY_KEY>") { ENV['DARK_SKY_KEY'] }
+  config.allow_http_connections_when_no_cassette = true
 end
 
 begin
